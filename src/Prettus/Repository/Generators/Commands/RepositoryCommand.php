@@ -66,26 +66,6 @@ class RepositoryCommand extends Command
     {
         $this->generators = new Collection();
 
-        $migrationGenerator = new MigrationGenerator([
-            'name'   => 'create_' . Str::snake(Str::plural($this->argument('name'))) . '_table',
-            'fields' => $this->option('fillable'),
-            'force'  => $this->option('force'),
-        ]);
-
-        if (!$this->option('skip-migration')) {
-            $this->generators->push($migrationGenerator);
-        }
-
-        $modelGenerator = new ModelGenerator([
-            'name'     => $this->argument('name'),
-            'fillable' => $this->option('fillable'),
-            'force'    => $this->option('force')
-        ]);
-
-        if (!$this->option('skip-model')) {
-            $this->generators->push($modelGenerator);
-        }
-
         $this->generators->push(new RepositoryInterfaceGenerator([
             'name'  => $this->argument('name'),
             'force' => $this->option('force'),
